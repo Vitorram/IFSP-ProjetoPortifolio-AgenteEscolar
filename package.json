@@ -1,0 +1,37 @@
+{
+  "name": "projeto-escola",
+  "version": "1.0.0",
+  "description": "Projeto voltado a uma instituição de ensino, relaciona os Crud's para interação e processamento dos dados em uma api funcional",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vitorram/IF_SP_CARAGUATATUBA.git"
+  },
+  "keywords": [
+    "escola",
+    "ensino",
+    "CRUD",
+    "alunos",
+    "salas",
+    "dados",
+    "APIrest"
+  ],
+  "author": "Lucas Alves, Joao Gabriel, Thiago Venancio, Vitor Meneses",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vitorram/IF_SP_CARAGUATATUBA/issues"
+  },
+  "homepage": "https://github.com/Vitorram/IF_SP_CARAGUATATUBA#readme",
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "prisma": "^6.7.0"
+  }
+}
