@@ -1,0 +1,132 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model alunos {
+  id         Int          @id @default(autoincrement())
+  nome       String       @db.VarChar(100)
+  email      String?      @unique(map: "email") @db.VarChar(150)
+  created_at DateTime?    @default(now()) @db.Timestamp(0)
+  updated_at DateTime?    @default(now()) @db.Timestamp(0)
+  matriculas matriculas[]
+  notas      notas[]
+}
+
+model cursos {
+  id          Int           @id @default(autoincrement())
+  nome        String        @db.VarChar(100)
+  descricao   String?       @db.Text
+  created_at  DateTime?     @default(now()) @db.Timestamp(0)
+  updated_at  DateTime?     @default(now()) @db.Timestamp(0)
+  disciplinas disciplinas[]
+  periodos    periodos[]
+}
+
+model disciplinas {
+  id         Int       @id @default(autoincrement())
+  nome       String    @db.VarChar(100)
+  curso_id   Int
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @default(now()) @db.Timestamp(0)
+  cursos     cursos    @relation(fields: [curso_id], references: [id], onDelete: Cascade, map: "disciplinas_ibfk_1")
+  notas      notas[]
+  turmas     turmas[]
+
+  @@index([curso_id], map: "curso_id")
+}
+
+model exemplares {
+  id         Int       @id @default(autoincrement())
+  livro_id   Int
+  codigo     String?   @db.VarChar(50)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @default(now()) @db.Timestamp(0)
+  livros     livros    @relation(fields: [livro_id], references: [id], onDelete: Cascade, map: "exemplares_ibfk_1")
+
+  @@unique([livro_id, codigo], map: "livro_exemplar")
+}
+
+model livros {
+  id         Int          @id @default(autoincrement())
+  titulo     String       @db.VarChar(200)
+  autor      String?      @db.VarChar(150)
+  isbn       String?      @unique(map: "isbn") @db.VarChar(20)
+  created_at DateTime?    @default(now()) @db.Timestamp(0)
+  updated_at DateTime?    @default(now()) @db.Timestamp(0)
+  exemplares exemplares[]
+}
+
+model matriculas {
+  id         Int       @id @default(autoincrement())
+  aluno_id   Int
+  periodo_id Int
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @default(now()) @db.Timestamp(0)
+  alunos     alunos    @relation(fields: [aluno_id], references: [id], onDelete: Cascade, map: "matriculas_ibfk_1")
+  periodos   periodos  @relation(fields: [periodo_id], references: [id], onDelete: Cascade, map: "matriculas_ibfk_2")
+
+  @@index([aluno_id], map: "aluno_id")
+  @@index([periodo_id], map: "periodo_id")
+}
+
+model notas {
+  id            Int         @id @default(autoincrement())
+  aluno_id      Int
+  disciplina_id Int
+  periodo_id    Int
+  valor         Decimal     @db.Decimal(5, 2)
+  created_at    DateTime?   @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?   @default(now()) @db.Timestamp(0)
+  alunos        alunos      @relation(fields: [aluno_id], references: [id], onDelete: Cascade, map: "notas_ibfk_1")
+  disciplinas   disciplinas @relation(fields: [disciplina_id], references: [id], onDelete: Cascade, map: "notas_ibfk_2")
+  periodos      periodos    @relation(fields: [periodo_id], references: [id], onDelete: Cascade, map: "notas_ibfk_3")
+
+  @@unique([aluno_id, disciplina_id, periodo_id], map: "unica_nota")
+  @@index([disciplina_id], map: "disciplina_id")
+  @@index([periodo_id], map: "periodo_id")
+}
+
+model periodos {
+  id         Int          @id @default(autoincrement())
+  ano        Int          @db.Year
+  curso_id   Int
+  created_at DateTime?    @default(now()) @db.Timestamp(0)
+  updated_at DateTime?    @default(now()) @db.Timestamp(0)
+  matriculas matriculas[]
+  notas      notas[]
+  cursos     cursos       @relation(fields: [curso_id], references: [id], onDelete: Cascade, map: "periodos_ibfk_1")
+  turmas     turmas[]
+
+  @@index([curso_id], map: "curso_id")
+}
+
+model professores {
+  id         Int       @id @default(autoincrement())
+  nome       String    @db.VarChar(100)
+  email      String?   @unique(map: "email") @db.VarChar(150)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @default(now()) @db.Timestamp(0)
+  turmas     turmas[]
+}
+
+model turmas {
+  id            Int         @id @default(autoincrement())
+  professor_id  Int
+  disciplina_id Int
+  periodo_id    Int
+  created_at    DateTime?   @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?   @default(now()) @db.Timestamp(0)
+  professores   professores @relation(fields: [professor_id], references: [id], onDelete: Cascade, map: "turmas_ibfk_1")
+  disciplinas   disciplinas @relation(fields: [disciplina_id], references: [id], onDelete: Cascade, map: "turmas_ibfk_2")
+  periodos      periodos    @relation(fields: [periodo_id], references: [id], onDelete: Cascade, map: "turmas_ibfk_3")
+
+  @@index([disciplina_id], map: "disciplina_id")
+  @@index([periodo_id], map: "periodo_id")
+  @@index([professor_id], map: "professor_id")
+}
