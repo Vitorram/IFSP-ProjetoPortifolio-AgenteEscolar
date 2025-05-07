@@ -8,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model alunos { 
+model alunos {
   id         Int          @id @default(autoincrement())
   nome       String       @db.VarChar(100)
   email      String?      @unique(map: "email") @db.VarChar(150)
@@ -29,16 +29,20 @@ model cursos {
 }
 
 model disciplinas {
-  id         Int       @id @default(autoincrement())
-  nome       String    @db.VarChar(100)
-  curso_id   Int
-  created_at DateTime? @default(now()) @db.Timestamp(0)
-  updated_at DateTime? @default(now()) @db.Timestamp(0)
-  cursos     cursos    @relation(fields: [curso_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "disciplinas_ibfk_1")
-  notas      notas[]
-  turmas     turmas[]
+  id            Int          @id @default(autoincrement())
+  nome          String       @db.VarChar(100)
+  curso_id      Int
+  professor_id  Int?         // nova chave estrangeira para professores
+  created_at    DateTime?    @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?    @default(now()) @db.Timestamp(0)
+
+  cursos        cursos       @relation(fields: [curso_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "disciplinas_ibfk_1")
+  professores   professores? @relation(fields: [professor_id], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "disciplinas_ibfk_2")
+  notas         notas[]
+  turmas        turmas[]
 
   @@index([curso_id], map: "curso_id")
+  @@index([professor_id], map: "professor_id")
 }
 
 model matriculas {
@@ -47,6 +51,7 @@ model matriculas {
   periodo_id Int
   created_at DateTime? @default(now()) @db.Timestamp(0)
   updated_at DateTime? @default(now()) @db.Timestamp(0)
+
   alunos     alunos    @relation(fields: [aluno_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "matriculas_ibfk_1")
   periodos   periodos  @relation(fields: [periodo_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "matriculas_ibfk_2")
 
@@ -63,7 +68,7 @@ model notas {
   valor         Decimal     @db.Decimal(5, 2)
   created_at    DateTime?   @default(now()) @db.Timestamp(0)
   updated_at    DateTime?   @default(now()) @db.Timestamp(0)
-  tipos_nota    tipos_nota  @relation(fields: [tipo_nota_id], references: [id], onUpdate: NoAction, map: "fk_notas_tiposnota")
+
   alunos        alunos      @relation(fields: [aluno_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "notas_ibfk_1")
   disciplinas   disciplinas @relation(fields: [disciplina_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "notas_ibfk_2")
   periodos      periodos    @relation(fields: [periodo_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "notas_ibfk_3")
@@ -74,7 +79,7 @@ model notas {
   @@index([periodo_id], map: "periodo_id")
 }
 
-model periodos { //REPENSAR A EXISTENCIA DO PERIODO AO MESMO TEMPO DA EXISTENCIA DE APENAS UM CURSO POR PERIODO
+model periodos {
   id         Int          @id @default(autoincrement())
   ano        Int          @db.Year
   curso_id   Int
@@ -88,42 +93,27 @@ model periodos { //REPENSAR A EXISTENCIA DO PERIODO AO MESMO TEMPO DA EXISTENCIA
   @@index([curso_id], map: "curso_id")
 }
 
-model professores { //REPENSAR O RELACIONAMENTO, PARA QUE SE RELACIONE COM A DISCIPLINA
-  id         Int       @id @default(autoincrement())
-  nome       String    @db.VarChar(100)
-  email      String?   @unique(map: "email") @db.VarChar(150)
-  created_at DateTime? @default(now()) @db.Timestamp(0)
-  updated_at DateTime? @default(now()) @db.Timestamp(0)
-  turmas     turmas[]
+model professores {
+  id         Int          @id @default(autoincrement())
+  nome       String       @db.VarChar(100)
+  email      String?      @unique(map: "email") @db.VarChar(150)
+  created_at DateTime?    @default(now()) @db.Timestamp(0)
+  updated_at DateTime?    @default(now()) @db.Timestamp(0)
+  disciplines disciplinas[] // relação de 1 professor para N disciplinas
 }
 
-model tipos_nota { //RETIRAR, DEIXAR APENAS NOTA
-  id         Int       @id @default(autoincrement())
-  turma_id   Int
-  nome       String    @db.VarChar(30)
-  peso       Decimal?  @default(1.00) @db.Decimal(3, 2)
-  created_at DateTime? @default(now()) @db.Timestamp(0)
-  updated_at DateTime? @default(now()) @db.Timestamp(0)
-  notas      notas[]
-  turmas     turmas    @relation(fields: [turma_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_tiposnota_turma")
-
-  @@unique([turma_id, nome], map: "uk_turmanome")
-  @@index([turma_id], map: "idx_turma")
-}
-
-model turmas { // PENSAR EM ALGUM IDENTIFICADOR TEXTUAL
+model turmas {
   id            Int          @id @default(autoincrement())
-  professor_id  Int
+  nome          String       @db.VarChar(100)
   disciplina_id Int
   periodo_id    Int
   created_at    DateTime?    @default(now()) @db.Timestamp(0)
   updated_at    DateTime?    @default(now()) @db.Timestamp(0)
-  tipos_nota    tipos_nota[]
-  professores   professores  @relation(fields: [professor_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "turmas_ibfk_1")
+
   disciplinas   disciplinas  @relation(fields: [disciplina_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "turmas_ibfk_2")
   periodos      periodos     @relation(fields: [periodo_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "turmas_ibfk_3")
 
   @@index([disciplina_id], map: "disciplina_id")
   @@index([periodo_id], map: "periodo_id")
-  @@index([professor_id], map: "professor_id")
-}
+  
+  }
