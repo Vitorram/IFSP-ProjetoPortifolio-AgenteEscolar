@@ -8,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model alunos {
+model alunos {//está ok
   id         Int          @id @default(autoincrement())
   nome       String       @db.VarChar(100)
   email      String?      @unique(map: "email") @db.VarChar(150)
@@ -18,7 +18,7 @@ model alunos {
   notas      notas[]
 }
 
-model cursos {
+model cursos { //curso se relaciona com
   id          Int           @id @default(autoincrement())
   nome        String        @db.VarChar(100)
   descricao   String?       @db.Text
