@@ -5,10 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Escolar</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
       background: #f2f2f2;
+      display: flex;
+      min-height: 100vh;
+    }
+
+   
+    .side-image {
+      flex: 1;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .side-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    
+    .form-panel {
+      flex: 1;
+      padding: 40px;
+    }
+    .form-panel h1 {
+      margin-bottom: 20px;
+      text-align: center;
     }
     section {
       background: #fff;
@@ -16,97 +43,108 @@
       border-radius: 8px;
       padding: 20px;
       margin-bottom: 20px;
+      width: 100%;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    h2 {
+    section h2 {
       margin-top: 0;
     }
-    input, select, button {
+    input, button {
       display: block;
-      margin-top: 10px;
-      margin-bottom: 20px;
-      padding: 8px;
       width: 100%;
       max-width: 400px;
+      padding: 8px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background: #0066ff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0051cc;
     }
   </style>
 </head>
 <body>
 
-  <h1>Painel de Cadastro</h1>
+  
+  <div class="side-image">
+    <img src="https://i.pinimg.com/736x/f3/ec/5a/f3ec5a6767183b69c0c7e2f3f24ad056.jpg" alt="Ilustração Escolar">
+  </div>
 
-  <!-- Criar Período -->
-  <section>
-    <h2>Criar Período</h2>
-    <form id="formPeriodo">
-      <input type="text" id="nomePeriodo" placeholder="Nome do Período (Ex: 2025.1)" required />
-      <button type="submit">Criar Período</button>
-    </form>
-  </section>
+  <!-- Coluna dos formularios-->
+  <div class="form-panel">
+    <h1>Painel de Cadastro</h1>
 
-  <!-- Criar Curso -->
-  <section>
-    <h2>Criar Curso</h2>
-    <form id="formCurso">
-      <input type="text" id="idPeriodoCurso" placeholder="ID do Período" required />
-      <input type="text" id="nomeCurso" placeholder="Nome do Curso" required />
-      <button type="submit">Criar Curso</button>
-    </form>
-  </section>
+    <section>
+      <h2>Criar Período</h2>
+      <form id="formPeriodo">
+        <input type="text" id="nomePeriodo" placeholder="Nome do Período (Ex: 2025.1)" required />
+        <button type="submit">Criar Período</button>
+      </form>
+    </section>
 
-  <!-- Criar Turma -->
-  <section>
-    <h2>Criar Turma</h2>
-    <form id="formTurma">
-      <input type="text" id="idCursoTurma" placeholder="ID do Curso" required />
-      <input type="text" id="nomeTurma" placeholder="Nome da Turma" required />
-      <button type="submit">Criar Turma</button>
-    </form>
-  </section>
+    <section>
+      <h2>Criar Curso</h2>
+      <form id="formCurso">
+        <input type="text" id="idPeriodoCurso" placeholder="ID do Período" required />
+        <input type="text" id="nomeCurso" placeholder="Nome do Curso" required />
+        <button type="submit">Criar Curso</button>
+      </form>
+    </section>
 
-  <!-- Cadastrar Aluno -->
-  <section>
-    <h2>Cadastrar Aluno por Matrícula</h2>
-    <form id="formAluno">
-      <input type="text" id="matriculaAluno" placeholder="Matrícula do Aluno" required />
-      <input type="text" id="nomeAluno" placeholder="Nome do Aluno" required />
-      <button type="submit">Cadastrar Aluno</button>
-    </form>
-  </section>
+    <section>
+      <h2>Criar Turma</h2>
+      <form id="formTurma">
+        <input type="text" id="idCursoTurma" placeholder="ID do Curso" required />
+        <input type="text" id="nomeTurma" placeholder="Nome da Turma" required />
+        <button type="submit">Criar Turma</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Cadastrar Aluno</h2>
+      <form id="formAluno">
+        <input type="text" id="matriculaAluno" placeholder="Matrícula do Aluno" required />
+        <input type="text" id="nomeAluno" placeholder="Nome do Aluno" required />
+        <button type="submit">Cadastrar Aluno</button>
+      </form>
+    </section>
+  </div>
 
   <script>
-    // Submeter Período
-    document.getElementById('formPeriodo').addEventListener('submit', async function(e) {
+    // Exemplo de console.log carai
+    document.getElementById('formPeriodo').addEventListener('submit', e => {
       e.preventDefault();
-      const nome = document.getElementById('nomePeriodo').value;
-      console.log("Criar período:", nome);
-      // await fetch('/api/periodos', { method: 'POST', body: JSON.stringify({ nome }) });
+      console.log('Criar período:', e.target.nomePeriodo.value);
     });
-
-    // Submeter Curso
-    document.getElementById('formCurso').addEventListener('submit', async function(e) {
+    document.getElementById('formCurso').addEventListener('submit', e => {
       e.preventDefault();
-      const idPeriodo = document.getElementById('idPeriodoCurso').value;
-      const nome = document.getElementById('nomeCurso').value;
-      console.log("Criar curso:", { idPeriodo, nome });
-      // await fetch(`/api/periodos/${idPeriodo}/cursos`, { method: 'POST', body: JSON.stringify({ nome }) });
+      console.log('Criar curso:', {
+        idPeriodo: e.target.idPeriodoCurso.value,
+        nome: e.target.nomeCurso.value
+      });
     });
-
-    // Submeter Turma
-    document.getElementById('formTurma').addEventListener('submit', async function(e) {
+    document.getElementById('formTurma').addEventListener('submit', e => {
       e.preventDefault();
-      const idCurso = document.getElementById('idCursoTurma').value;
-      const nome = document.getElementById('nomeTurma').value;
-      console.log("Criar turma:", { idCurso, nome });
-      // await fetch(`/api/cursos/${idCurso}/turmas`, { method: 'POST', body: JSON.stringify({ nome }) });
+      console.log('Criar turma:', {
+        idCurso: e.target.idCursoTurma.value,
+        nome: e.target.nomeTurma.value
+      });
     });
-
-    // Submeter Aluno
-    document.getElementById('formAluno').addEventListener('submit', async function(e) {
+    document.getElementById('formAluno').addEventListener('submit', e => {
       e.preventDefault();
-      const matricula = document.getElementById('matriculaAluno').value;
-      const nome = document.getElementById('nomeAluno').value;
-      console.log("Cadastrar aluno:", { matricula, nome });
-      // await fetch('/api/alunos', { method: 'POST', body: JSON.stringify({ matricula, nome }) });
+      console.log('Cadastrar aluno:', {
+        matricula: e.target.matriculaAluno.value,
+        nome: e.target.nomeAluno.value
+      });
     });
   </script>
 
