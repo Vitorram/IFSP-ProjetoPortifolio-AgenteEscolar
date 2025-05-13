@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Escolar</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      min-height: 100vh;
+    }
+
+   
+    .side-image {
+      flex: 1;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .side-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    
+    .form-panel {
+      flex: 1;
+      padding: 40px;
+    }
+    .form-panel h1 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    section {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    section h2 {
+      margin-top: 0;
+    }
+    input, button {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      padding: 8px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background: #0066ff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0051cc;
+    }
+    @media (max-width: 768px) {
+            .side-image {
+               display: none;
+            }
+        }
+  </style>
+</head>
+<body>
+
+  
+  <div class="side-image">
+    <img src="https://i.pinimg.com/736x/f3/ec/5a/f3ec5a6767183b69c0c7e2f3f24ad056.jpg" alt="Ilustração Escolar">
+  </div>
+
+  <!-- Coluna dos formularios-->
+  <div class="form-panel">
+    <h1>Painel de Cadastro</h1>
+
+    <section>
+      <h2>Criar Período</h2>
+      <form id="formPeriodo">
+        <input type="text" id="nomePeriodo" placeholder="Nome do Período (Ex: 2025.1)" required />
+        <button type="submit">Criar Período</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Criar Curso</h2>
+      <form id="formCurso">
+        <input type="text" id="idPeriodoCurso" placeholder="ID do Período" required />
+        <input type="text" id="nomeCurso" placeholder="Nome do Curso" required />
+        <button type="submit">Criar Curso</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Criar Turma</h2>
+      <form id="formTurma">
+        <input type="text" id="idCursoTurma" placeholder="ID do Curso" required />
+        <input type="text" id="nomeTurma" placeholder="Nome da Turma" required />
+        <button type="submit">Criar Turma</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Cadastrar Aluno</h2>
+      <form id="formAluno">
+        <input type="text" id="matriculaAluno" placeholder="Matrícula do Aluno" required />
+        <input type="text" id="nomeAluno" placeholder="Nome do Aluno" required />
+        <button type="submit">Cadastrar Aluno</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    // Exemplo de console.log carai
+    document.getElementById('formPeriodo').addEventListener('submit', e => {
+      e.preventDefault();
+      console.log('Criar período:', e.target.nomePeriodo.value);
+    });
+    document.getElementById('formCurso').addEventListener('submit', e => {
+      e.preventDefault();
+      console.log('Criar curso:', {
+        idPeriodo: e.target.idPeriodoCurso.value,
+        nome: e.target.nomeCurso.value
+      });
+    });
+    document.getElementById('formTurma').addEventListener('submit', e => {
+      e.preventDefault();
+      console.log('Criar turma:', {
+        idCurso: e.target.idCursoTurma.value,
+        nome: e.target.nomeTurma.value
+      });
+    });
+    document.getElementById('formAluno').addEventListener('submit', e => {
+      e.preventDefault();
+      console.log('Cadastrar aluno:', {
+        matricula: e.target.matriculaAluno.value,
+        nome: e.target.nomeAluno.value
+      });
+    });
+  </script>
+
+</body>
+</html>

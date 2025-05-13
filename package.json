@@ -4,7 +4,9 @@
   "description": "Projeto voltado a uma instituição de ensino, relaciona os Crud's para interação e processamento dos dados em uma api funcional",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
   },
   "repository": {
     "type": "git",
