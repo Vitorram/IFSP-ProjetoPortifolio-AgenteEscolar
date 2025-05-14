@@ -17,3 +17,4 @@ export const update = (id, data) => prisma.alunos.update({
 export const remove = (id) => prisma.alunos.delete({
   where: { id: parseInt(id) }
 })
+teste
