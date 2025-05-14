@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Projeto voltado a uma instituição de ensino, relaciona os Crud's para interação e processamento dos dados em uma api funcional",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
