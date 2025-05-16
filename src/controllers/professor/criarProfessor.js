@@ -1,21 +1,25 @@
-import { create, propertyValidator } from "../../models"
+import { create, professorValidator } from "../../model/professorModel.js"
 
-export default async function createPropertyController(req, res, next) {
-    try{
-        const property = req.body
-        const {success, error, data: propertyValidated} = propertyValidator(property, {id: true})
-        if(!success){
-            return res.status(400).json({
-                message: 'Erro ao cadastrar propriedade, verifique os dados!',
-                errors: error.flatten().fieldErrors
-            })
-        }
-        const result = await create(propertyValidated)
-        return res.json({
-            message: "Imóvel criado com sucesso!",
-            property: result
-        })
-    }catch(error){
-        next(error)
+export default async function criarProfessor(req, res, next) {
+  try {
+    const professor = req.body
+
+    const { success, error, data: professorValidado } = professorValidator(professor)
+
+    if (!success) {
+      return res.status(400).json({
+        message: 'Erro ao cadastrar professor, verifique os dados!',
+        errors: error.flatten().fieldErrors
+      })
     }
+
+    const resultado = await create(professorValidado)
+
+    return res.status(201).json({
+      message: "Professor criado com sucesso!",
+      professor: resultado
+    })
+  } catch (error) {
+    next(error)
+  }
 }
