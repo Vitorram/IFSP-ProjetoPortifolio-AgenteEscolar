@@ -16,7 +16,7 @@ app.use(express.json())
 
 
 app.get('/professor', welcomeController)
-app.use('/aluno', alunoRoutes)
+app.use('/alunos', alunoRoutes)
 
 
 app.listen(port, () => {
