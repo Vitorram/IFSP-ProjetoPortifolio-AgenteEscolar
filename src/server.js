@@ -6,17 +6,17 @@ import alunoRoutes from './routers/alunoRoutes.js'
 
 const app = express()
 const port = 3000
-
-
 app.use(cors())
 app.use(express.json())
 
-//Rotas
+
  
 
-
-app.get('/professor', welcomeController)
+//--- Rotas Crud's ---
+app.get('/', welcomeController)
 app.use('/alunos', alunoRoutes)
+app.use('/periodo', periodoRouter)
+app.use('/curso', cursoRouter)
 
 
 app.listen(port, () => {
