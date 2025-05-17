@@ -2,6 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import { welcomeController } from './controllers/welcomeController.js'
 import alunoRoutes from './routers/alunoRoutes.js'
+import periodoRouter from './routers/periodoRouter.js'
+import cursoRouter from './routers/cursoRouter.js'
 
 
 const app = express()

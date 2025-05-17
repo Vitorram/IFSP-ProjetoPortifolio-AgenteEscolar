@@ -11,15 +11,15 @@ import deletePeriodoController from '../controllers/periodo/deletePeriodoControl
 
 
 const router = express.Router()
+//crud routes
+router.post('/', createPeriodoController)      //create route
+router.get('/list', getListPeriodoController)  //read route
+router.put('/:id', updatePeriodoController)    //update route
+router.delete('/:id', deletePeriodoController) //delete route
 
-router.get('/list', getListPeriodoController)
+
+//rota alternativas
 router.get('/:id', getPeriodoController)
-router.post('/', createPeriodoController)
-router.put('/:id', updatePeriodoController)
-router.delete('/:id', deletePeriodoController)
-
-
-//rota de alterações individuais
 router.patch("/ano", )
 
 
