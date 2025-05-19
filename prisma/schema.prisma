@@ -24,7 +24,7 @@ model cursos {
   created_at  DateTime?     @default(now()) @db.Timestamp(0)
   updated_at  DateTime?     @default(now()) @db.Timestamp(0)
   disciplinas disciplinas[]
-  cursoPeriodos  curso_periodos[]
+  cursoPeriodos  cursos_periodos[]
 }
 
 model disciplinas {
@@ -86,12 +86,12 @@ model periodos {
   matriculas matriculas[]
   notas      notas[]
   turmas     turmas[]
-  cursoPeriodos  curso_periodos[]
+  cursoPeriodos  cursos_periodos[]
 }
 
 
 
-model curso_periodos {
+model cursos_periodos {
   curso_id   Int
   periodo_id Int
 
