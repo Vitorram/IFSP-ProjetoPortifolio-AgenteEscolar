@@ -1,32 +1,27 @@
-import express from 'express'
-import getProfessores from '../controllers/professor/getProfessor.js'
-import getProfessorById from '../controllers/professor/getProfessorById.js'
-import criarProfessor from '../controllers/professor/criarProfessor.js'
-import updateProfessor from '../controllers/professor/updateProfessor.js'
-import deletarProfessor from '../controllers/professor/deletarProfessor.js'
-import mudarProfessor from '../controllers/professor/mudarProfessor.js'
+import express from 'express';
+import {
+  getProfessores,
+  getProfessorById,
+  createProfessor,
+  updateProfessor,
+  deleteProfessor
+} from '../controllers/professorController.js';
 
-const router = express.Router()
+const router = express.Router();
 
-//Listar todos os professores
-router.get('/list', getProfessores)
+// Listar todos os professores
+router.get('/', getProfessores);
 
-//Buscar professor por ID
-router.get('/:id', getProfessorById)
+// Buscar professor por ID
+router.get('/:id', getProfessorById);
 
-//Criar novo professor
-router.post('/', criarProfessor)
+// Criar novo professor
+router.post('/', createProfessor);
 
+// Atualizar professor existente
+router.put('/:id', updateProfessor);
 
-//Atualizar professor (PUT = substituição total)
-router.put('/:id', updateProfessor)
+// Deletar professor
+router.delete('/:id', deleteProfessor);
 
-//Deletar professor
-router.delete('/:id', deletarProfessor)
-
-//Alterar parcialmente (ex: email ou nome) — PATCH
-// PATCH /professores/:id — atualização parcial
-router.patch('/:id', mudarProfessor)
-
-
-export default router
+export default router;

@@ -1,7 +1,8 @@
 import express from 'express'
 import cors from 'cors'
-import { welcomeController } from './controllers/welcomeController.js'
+//import { welcomeController } from './controllers/welcomeController.js'
 import alunoRoutes from './routers/alunoRoutes.js'
+import professorRoutes from './routers/professorRouter.js';
 
 
 const app = express()
@@ -15,7 +16,7 @@ app.use(express.json())
  
 
 
-app.get('/professor', welcomeController)
+app.use('/professores', professorRoutes);
 app.use('/alunos', alunoRoutes)
 
 
