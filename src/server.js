@@ -8,6 +8,7 @@ import professorRoutes from './routers/professorRouter.js';
 //em um arquivo .env 
 dotenv.config();
 
+<<<<<<< HEAD
 const app = express();
 const port = 3000;
 
@@ -15,6 +16,22 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/professores', professorRoutes);
+=======
+const app = express()
+const port = 3000
+app.use(cors())
+app.use(express.json())
+
+
+ 
+
+//--- Rotas Crud's ---
+app.get('/', welcomeController)
+app.use('/alunos', alunoRoutes)
+app.use('/periodo', periodoRouter)
+app.use('/curso', cursoRouter)
+
+>>>>>>> 3eedaf01c87999e61767936f496d09620629bd43
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
