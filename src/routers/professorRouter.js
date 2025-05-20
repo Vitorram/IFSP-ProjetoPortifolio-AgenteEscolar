@@ -1,17 +1,18 @@
-import express from 'express'
-import getProfessor from '../controllers/professor/getProfessor.js'
-import criarProfessor from '../controllers/professor/criarProfessor.js'
-import updateProfessor from '../controllers/professor/updateProfessor.js'
-import deletarprofessor from '../controllers/professor/deletarprofessor.js'
-import mudarProfessor from '../controllers/professor/mudarProfessor.js'
+import express from 'express';
+import {
+  getProfessores,
+  getProfessorById,
+  createProfessor,
+  updateProfessor,
+  deleteProfessor
+} from '../controllers/professorController.js';
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/list', getProfessor)
-router.get('/:id', ()=>{})
-router.post('/', criarProfessor)
-router.put('/:id', updateProfessor)
-router.delete('/:id', deletarprofessor)
-router.patch('/type', mudarProfessor)
+router.get('/', getProfessores);
+router.get('/:id', getProfessorById);
+router.post('/', createProfessor);
+router.put('/:id', updateProfessor);
+router.delete('/:id', deleteProfessor);
 
-export default router
+export default router;
