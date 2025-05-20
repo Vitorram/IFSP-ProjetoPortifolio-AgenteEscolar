@@ -15,8 +15,7 @@ app.use(express.json())
 //--- Rotas Crud's ---
 app.get('/', welcomeController)
 app.use('/alunos', alunoRoutes)
-app.use('/periodo', periodoRouter)
-app.use('/curso', cursoRouter)
+
 
 
 app.listen(port, () => {
