@@ -21,3 +21,5 @@ router.delete('/:id', deleteCursoController)
 
 //rota de alterações individuais
 router.patch("/ano", )
+
+export default router
