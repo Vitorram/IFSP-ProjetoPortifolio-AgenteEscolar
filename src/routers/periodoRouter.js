@@ -19,8 +19,6 @@ router.put('/:id', updatePeriodoController)
 router.delete('/:id', deletePeriodoController)
 
 
-//rota de alterações individuais
-router.patch("/ano", )
 
 
 export default router
