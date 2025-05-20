@@ -1,20 +1,29 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import professorRoutes from './routers/professorRouter.js';
 
-//Coloquei aqui pq meu .env não estava indo,
-//ele serve para carregar variáveis de ambiente definidas 
-//em um arquivo .env 
+// Rotas
+import professorRoutes from './routers/professorRouter.js';
+import alunoRoutes from './routers/alunoRouter.js';
+import periodoRouter from './routers/periodoRouter.js';
+import cursoRouter from './routers/cursoRouter.js';
+import { welcomeController } from './controllers/welcomeController.js'; // Certifique-se de que esse controller exista
+
+// Carrega variáveis de ambiente do arquivo .env
 dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/professores', professorRoutes);
+// Rotas
+app.get('/', welcomeController);
+app.use('/alunos', alunoRoutes);
+app.use('/periodo', periodoRouter);
+app.use('/curso', cursoRouter);
+app.use('/professores', professorRoutes); // Adicionando a rota de professores
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
