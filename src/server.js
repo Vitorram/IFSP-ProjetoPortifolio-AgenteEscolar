@@ -1,13 +1,17 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import cors from 'cors';
+import cors from 'cors'
+import { welcomeController } from './controllers/welcomeController.js'
+import alunoRoutes from './routers/alunoRoutes.js'
+import periodoRouter from './routers/periodoRouter.js'
+import cursoRouter from './routers/cursoRouter.js'
 
 // Rotas
 import professorRoutes from './routers/professorRouter.js';
-import alunoRoutes from './routers/alunoRouter.js';
+import alunoRoutes from './routers/alunoRoutes.js';
 import periodoRouter from './routers/periodoRouter.js';
 import cursoRouter from './routers/cursoRouter.js';
-import { welcomeController } from './controllers/welcomeController.js'; // Certifique-se de que esse controller exista
+import { welcomeController } from './controllers/welcomeController.js';
 
 // Carrega variáveis de ambiente do arquivo .env
 dotenv.config();
@@ -26,7 +30,7 @@ app.get('/', welcomeController);
 app.use('/alunos', alunoRoutes);
 app.use('/periodo', periodoRouter);
 app.use('/curso', cursoRouter);
-app.use('/professores', professorRoutes); // Adicionando a rota de professores
+app.use('/professores', professorRoutes); 
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
