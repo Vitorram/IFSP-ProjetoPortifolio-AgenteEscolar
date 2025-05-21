@@ -5,7 +5,7 @@ Projeto em grupo, realizado em aula com finalidade **educativa**, projetado para
 
 ---
 
-[Acesse aqui](https://link-do-projeto.com)
+[Acesse aqui](https://ifsp-projeto-escola-frontend.onrender.com)
 
 ---
 
